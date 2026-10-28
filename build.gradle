@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'avl.Main'
+}
+
+tasks.register('stub', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'avl.Test'
+    enableAssertions = true
+}

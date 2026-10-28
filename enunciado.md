@@ -1,0 +1,1 @@
+/home/lutz/Documentos/obsidian/Estudos/Faculdade/Desafio de Algoritmos e Programação (Árvores).md

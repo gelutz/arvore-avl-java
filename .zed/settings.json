@@ -1,0 +1,10 @@
+{
+  "lsp": {
+    "jdtls": {
+      "settings": {
+        "java_home": "/home/lutz/.sdkman/candidates/java/25-tem/",
+        "lombok_support": true,
+      },
+    },
+  },
+}
