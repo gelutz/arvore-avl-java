@@ -16,7 +16,6 @@ public class Node {
         } else {
             this.right = upsert(this.right, value);
         }
-
         if (value == this.value) {
             throw new RuntimeException("Valor duplicado.");
         }
@@ -29,5 +28,17 @@ public class Node {
 
         node.insert(value);
         return node;
+    }
+
+    public Node getLeft() {
+        return this.left;
+    }
+
+    public Node getRight() {
+        return this.right;
+    }
+
+    public int getValue() {
+        return this.value;
     }
 }
