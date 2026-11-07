@@ -1,6 +1,7 @@
 package avl;
 
 import avl.node.*;
+import avl.tree.AvlTreePathTest;
 import avl.tree.BalancedAvlTreeTest;
 
 public class Test {
@@ -23,5 +24,17 @@ public class Test {
 
         BalancedAvlTreeTest.randomOperationsTest();
         System.out.println("BalancedAvlTreeTest.randomOperationsTest OK.");
+
+        AvlTreePathTest.searchPathTest();
+        System.out.println("AvlTreePathTest.searchPathTest OK.");
+
+        AvlTreePathTest.removalPathTest();
+        System.out.println("AvlTreePathTest.removalPathTest OK.");
+
+        AvlTreePathTest.removalMatchesRealRemoveTest();
+        System.out.println("AvlTreePathTest.removalMatchesRealRemoveTest OK.");
+
+        AvlTreePathTest.traversalTest();
+        System.out.println("AvlTreePathTest.traversalTest OK.");
     }
 }

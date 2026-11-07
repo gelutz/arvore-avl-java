@@ -2,6 +2,8 @@ package avl.tree;
 
 import avl.node.Node;
 import avl.node.Order;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AvlTree implements Tree {
 
@@ -78,6 +80,47 @@ public class AvlTree implements Tree {
 
     public Node getRoot() {
         return root;
+    }
+
+    // descida binária a partir da raiz: termina no valor ou onde ele deveria estar
+    public List<Integer> searchPath(int value) {
+        List<Integer> path = new ArrayList<>();
+        Node p = root;
+        while (p != null) {
+            path.add(p.getValue());
+            if (p.getValue() == value) break;
+            p = value < p.getValue() ? p.getLeft() : p.getRight();
+        }
+        return path;
+    }
+
+    // com dois filhos, o removeNode ainda desce até o substituto antes de remover
+    public List<Integer> removalPath(int value) {
+        List<Integer> path = searchPath(value);
+        Node node = search(value);
+        if (node != null && node.getLeft() != null && node.getRight() != null) {
+            Node substituto = node.getSuccessor();
+            for (Node p = node.getLeft(); p != substituto; p = p.getRight()) {
+                path.add(p.getValue());
+            }
+            path.add(substituto.getValue());
+        }
+        return path;
+    }
+
+    public List<Integer> traversal(Order order) {
+        List<Integer> values = new ArrayList<>();
+        traversal(root, order, values);
+        return values;
+    }
+
+    private void traversal(Node node, Order order, List<Integer> values) {
+        if (node == null) return;
+        if (order == Order.PRE) values.add(node.getValue());
+        traversal(node.getLeft(), order, values);
+        if (order == Order.EM) values.add(node.getValue());
+        traversal(node.getRight(), order, values);
+        if (order == Order.POS) values.add(node.getValue());
     }
 
     private void removeNode(Node node) {
