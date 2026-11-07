@@ -1,7 +1,7 @@
 package avl;
 
 import avl.node.*;
-import avl.tree.UnbalancedAvlTreeTest;
+import avl.tree.BalancedAvlTreeTest;
 
 public class Test {
 
@@ -9,13 +9,19 @@ public class Test {
         NodeTest.insertTest();
         System.out.println("NodeTest.insertTest OK.");
 
-        UnbalancedAvlTreeTest.searchTest();
-        System.out.println("UnbalancedAvlTreeTest.searchTest OK.");
+        BalancedAvlTreeTest.balancedWalkTest();
+        System.out.println("BalancedAvlTreeTest.balancedWalkTest OK.");
 
-        UnbalancedAvlTreeTest.removeTest();
-        System.out.println("UnbalancedAvlTreeTest.removeTest OK.");
+        BalancedAvlTreeTest.rotationTest();
+        System.out.println("BalancedAvlTreeTest.rotationTest OK.");
 
-        UnbalancedAvlTreeTest.heightTest();
-        System.out.println("UnbalancedAvlTreeTest.heightTest OK.");
+        BalancedAvlTreeTest.heightTest();
+        System.out.println("BalancedAvlTreeTest.heightTest OK.");
+
+        BalancedAvlTreeTest.removeTest();
+        System.out.println("BalancedAvlTreeTest.removeTest OK.");
+
+        BalancedAvlTreeTest.randomOperationsTest();
+        System.out.println("BalancedAvlTreeTest.randomOperationsTest OK.");
     }
 }

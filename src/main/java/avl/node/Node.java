@@ -17,7 +17,8 @@ public class Node {
         this.parent = parent;
     }
 
-    public void insert(int value) {
+    // retorna a raiz da subárvore, que pode ter mudado por causa de uma rotação
+    public Node insert(int value) {
         if (value == this.value) {
             throw new RuntimeException("Valor duplicado.");
         }
@@ -28,7 +29,7 @@ public class Node {
             this.right = upsert(this.right, value, this);
         }
 
-        this.updateHeight();
+        return this.rebalance();
     }
 
     private Node upsert(Node node, int value, Node parent) {
@@ -36,12 +37,76 @@ public class Node {
             return new Node(value, parent);
         }
 
-        node.insert(value);
-        return node;
+        return node.insert(value);
     }
 
     private static int heightOf(Node node) {
         return node == null ? -1 : node.height;
+    }
+
+    public int balanceFactor() {
+        return heightOf(this.left) - heightOf(this.right);
+    }
+
+    // recalcula a altura e rotaciona se o fator chegou em +2 ou -2
+    // o filho com fator 0 só aparece na remoção, e ali a rotação simples resolve
+    public Node rebalance() {
+        this.updateHeight();
+        int balance = this.balanceFactor();
+
+        if (balance > 1) {
+            if (this.left.balanceFactor() < 0) {
+                this.left = this.left.rotateLeft();
+            }
+            return this.rotateRight();
+        }
+
+        if (balance < -1) {
+            if (this.right.balanceFactor() > 0) {
+                this.right = this.right.rotateRight();
+            }
+            return this.rotateLeft();
+        }
+
+        return this;
+    }
+
+    // quem chamou precisa religar o pai na nova raiz (só o parent da raiz é ajustado aqui)
+    private Node rotateRight() {
+        Node newRoot = this.left;
+        Node moved = newRoot.right;
+
+        newRoot.right = this;
+        this.left = moved;
+
+        newRoot.parent = this.parent;
+        this.parent = newRoot;
+        if (moved != null) {
+            moved.parent = this;
+        }
+
+        // this agora está embaixo de newRoot, então vem primeiro
+        this.updateHeight();
+        newRoot.updateHeight();
+        return newRoot;
+    }
+
+    private Node rotateLeft() {
+        Node newRoot = this.right;
+        Node moved = newRoot.left;
+
+        newRoot.left = this;
+        this.right = moved;
+
+        newRoot.parent = this.parent;
+        this.parent = newRoot;
+        if (moved != null) {
+            moved.parent = this;
+        }
+
+        this.updateHeight();
+        newRoot.updateHeight();
+        return newRoot;
     }
 
     public void setValue(int value) {

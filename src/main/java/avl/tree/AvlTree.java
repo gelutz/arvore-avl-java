@@ -63,7 +63,7 @@ public class AvlTree implements Tree {
             return;
         }
 
-        root.insert(value);
+        root = root.insert(value);
     }
 
     @Override
@@ -90,14 +90,30 @@ public class AvlTree implements Tree {
             return;
         }
 
-        // salva o pai para fazer atualização do height a partir dele depois
+        // salva o pai para rebalancear a partir dele depois
         Node parent = node.getParent();
         // quando o nó não tem dois filhos, troca o filho com o nó
         Node child = node.getLeft() != null ? node.getLeft() : node.getRight();
         swapNode(node, child);
 
-        for (Node p = parent; p != null; p = p.getParent()) {
-            p.updateHeight();
+        rebalancear(parent);
+    }
+
+    private void rebalancear(Node node) {
+        while (node != null) {
+            // precisa ser antes do rebalance, a rotação muda o parent do nó
+            Node parent = node.getParent();
+            Node newRoot = node.rebalance();
+
+            if (parent == null) {
+                root = newRoot;
+            } else if (parent.getLeft() == node) {
+                parent.setLeft(newRoot);
+            } else {
+                parent.setRight(newRoot);
+            }
+
+            node = parent;
         }
     }
 
