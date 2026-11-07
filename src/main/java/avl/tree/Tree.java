@@ -11,5 +11,5 @@ import avl.node.Node;
 public interface Tree {
     Node search(int value);
     void insert(int value);
-    void remote(int value);
+    void remove(int value);
 }

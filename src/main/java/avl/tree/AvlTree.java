@@ -35,16 +35,16 @@ public class AvlTree implements Tree {
 
     private Node searchPOS(Node root, int value) {
         if (root == null) return null;
-        var resultLeft = this.searchPRE(root.getLeft(), value);
+        var resultLeft = this.searchPOS(root.getLeft(), value);
         if (resultLeft != null) return resultLeft;
 
-        var resultRight = this.searchPRE(root.getRight(), value);
+        var resultRight = this.searchPOS(root.getRight(), value);
         if (resultRight != null) return resultRight;
         if (root.getValue() == value) return root;
         return null;
     }
 
-    private Node searchEM(Node root2, int value) {
+    private Node searchEM(Node root, int value) {
         if (root == null) return null;
         var resultLeft = this.searchPRE(root.getLeft(), value);
         if (resultLeft != null) return resultLeft;
@@ -67,9 +67,55 @@ public class AvlTree implements Tree {
     }
 
     @Override
-    public void remote(int value) {}
+    public void remove(int value) {
+        Node node = search(value);
+        if (node == null) {
+            return;
+        }
+
+        removeNode(node);
+    }
 
     public Node getRoot() {
         return root;
+    }
+
+    private void removeNode(Node node) {
+        // se tiver dois filhos, copia o valor do filho para si
+        // e manda remover o filho (recursivo)
+        if (node.getLeft() != null && node.getRight() != null) {
+            Node substituto = node.getSuccessor();
+            node.setValue(substituto.getValue());
+            removeNode(substituto);
+            return;
+        }
+
+        // salva o pai para fazer atualização do height a partir dele depois
+        Node parent = node.getParent();
+        // quando o nó não tem dois filhos, troca o filho com o nó
+        Node child = node.getLeft() != null ? node.getLeft() : node.getRight();
+        swapNode(node, child);
+
+        for (Node p = parent; p != null; p = p.getParent()) {
+            p.updateHeight();
+        }
+    }
+
+    private void swapNode(Node node, Node child) {
+        // pega o pai do nó em questão
+        Node parent = node.getParent();
+
+        // se existir filho, o pai do filho vira o pai do nó atual
+        if (child != null) {
+            child.setParent(parent);
+        }
+
+        if (parent == null) {
+            root = child;
+        } else if (parent.getLeft() == node) {
+            parent.setLeft(child);
+        } else {
+            parent.setRight(child);
+        }
     }
 }
