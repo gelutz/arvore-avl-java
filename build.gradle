@@ -2,6 +2,16 @@ plugins {
     id 'application'
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('dev.tamboui:tamboui-bom:0.6.0')
+    implementation 'dev.tamboui:tamboui-toolkit'
+    implementation 'dev.tamboui:tamboui-jline3-backend'
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
@@ -17,3 +27,4 @@ tasks.register('stub', JavaExec) {
     mainClass = 'avl.Test'
     enableAssertions = true
 }
+
