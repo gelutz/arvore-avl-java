@@ -4,6 +4,7 @@ import avl.node.*;
 import avl.tree.AvlTreePathTest;
 import avl.tree.BalancedAvlTreeTest;
 import avl.view.CommandTest;
+import avl.view.TreeViewTest;
 
 public class Test {
 
@@ -43,5 +44,11 @@ public class Test {
 
         CommandTest.invalidTest();
         System.out.println("CommandTest.invalidTest OK.");
+
+        TreeViewTest.layoutTest();
+        System.out.println("TreeViewTest.layoutTest OK.");
+
+        TreeViewTest.underlineTest();
+        System.out.println("TreeViewTest.underlineTest OK.");
     }
 }
