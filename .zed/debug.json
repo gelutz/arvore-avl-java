@@ -1,5 +1,13 @@
 [
   {
+    "label": "Debug avl.Test",
+    "adapter": "Java",
+    "request": "launch",
+    "mainClass": "avl.Test",
+    "vmArgs": "-ea",
+    "cwd": "$ZED_WORKTREE_ROOT",
+  },
+  {
     "label": "Attach Java (5005)",
     "adapter": "Java",
     "request": "attach",
