@@ -3,6 +3,7 @@ package avl;
 import avl.node.*;
 import avl.tree.AvlTreePathTest;
 import avl.tree.BalancedAvlTreeTest;
+import avl.view.CommandTest;
 
 public class Test {
 
@@ -36,5 +37,11 @@ public class Test {
 
         AvlTreePathTest.traversalTest();
         System.out.println("AvlTreePathTest.traversalTest OK.");
+
+        CommandTest.parseTest();
+        System.out.println("CommandTest.parseTest OK.");
+
+        CommandTest.invalidTest();
+        System.out.println("CommandTest.invalidTest OK.");
     }
 }
